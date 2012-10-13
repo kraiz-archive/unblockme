@@ -18,8 +18,9 @@ class MappingResolver(client.Resolver):
 
         d = defer.Deferred()
         d.callback([
-            (dns.RRHeader(name, dns.A, dns.IN, self.ttl,
-                          dns.Record_A(self.mapping[name], self.ttl)),),
-            (), ()
+            (dns.RRHeader(
+                name, dns.A, dns.IN, self.ttl,
+                dns.Record_A(self.mapping[name], self.ttl)),
+            ), (), ()
         ])
         return d
