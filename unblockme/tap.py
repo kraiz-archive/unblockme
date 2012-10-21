@@ -34,13 +34,13 @@ def makeService(config):
     logging.info('Starting unblockme at %s' % interface)
 
     clients = config['clients'].split(',')
-    logging.info('clients: %' % ', '.join(clients))
+    logging.info('clients: %s' % ', '.join(clients))
 
     domains = config['domains'].split(',')
-    logging.info('domains: %' % ', '.join(domains))
+    logging.info('domains: %s' % ', '.join(domains))
 
     forward_dns = config['forward-dns'].split(',')
-    logging.info('forward-dns: %' % ', '.join(domains))
+    logging.info('forward-dns: %s' % ', '.join(forward_dns))
 
     # validator
     validator = Validator(clients=clients, domains=domains)
