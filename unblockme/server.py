@@ -12,6 +12,7 @@ class BaseHTTPProxyServer(protocol.Protocol):
     def connectionMade(self):
         if self.factory.validator.valid_client(self.transport.getPeer().host,
                                                self.proto_name):
+            self.transport.setTcpKeepAlive(1)
             self.cli_queue = defer.DeferredQueue()
             self.srv_queue = defer.DeferredQueue()
             self.srv_queue.get().addCallback(self.clientDataReceived)

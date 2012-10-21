@@ -1,3 +1,5 @@
+import logging
+
 from twisted.internet import defer
 from twisted.names import client, dns
 
@@ -15,6 +17,7 @@ class MappingResolver(client.Resolver):
     def lookupAddress(self, name, timeout=None):
         for domain, ip in self.mapping.iteritems():
             if domain.match(name) is not None:
+                logging.debug('lookupAddress matched %s' % name)
                 d = defer.Deferred()
                 d.callback([
                     (dns.RRHeader(name, dns.A, dns.IN, self.ttl,
