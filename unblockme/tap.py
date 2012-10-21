@@ -29,15 +29,26 @@ class Options(usage.Options):
 def makeService(config):
     unblockme_service = service.MultiService()
 
+    # parse config & log
+    interface = config['interface']
+    logging.info('Starting unblockme at %s' % interface)
+
+    clients = config['clients'].split(',')
+    logging.info('clients: %' % ', '.join(clients))
+
+    domains = config['domains'].split(',')
+    logging.info('domains: %' % ', '.join(domains))
+
+    forward_dns = config['forward-dns'].split(',')
+    logging.info('forward-dns: %' % ', '.join(domains))
+
     # validator
-    validator = Validator(clients=config['clients'].split(','),
-                          domains=config['domains'].split(','))
+    validator = Validator(clients=clients, domains=domains)
 
     # dns instanciation
     dns_resolver = MappingResolver(
-        mapping=dict((d, config['interface'])
-                     for d in config['domains'].split(',')),
-        servers=[(ip, 53) for ip in config['forward-dns'].split(',')]
+        mapping=dict((d, interface) for d in domains),
+        servers=[(ip, 53) for ip in forward_dns]
     )
     dns_factory = server.DNSServerFactory(clients=[dns_resolver],
                                           caches=[cache.CacheResolver()])
