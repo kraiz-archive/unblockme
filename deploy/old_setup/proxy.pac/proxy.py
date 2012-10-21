@@ -11,8 +11,8 @@ if len(sys.argv) > 1 and sys.argv[1] == 'debug':
 else:
     CLIENTS_FILE = '/etc/squid3/allowed.clients.acl'
     DOMAINS_FILE = '/etc/squid3/allowed.domains.acl'
-    IP_HEADER = 'HTTP_X_FORWARDED_FOR'
-    HOST = '127.0.0.2'
+    IP_HEADER = 'REMOTE_ADDR'
+    HOST = '199.195.251.154'
     AUTORELOAD = False
 
 
