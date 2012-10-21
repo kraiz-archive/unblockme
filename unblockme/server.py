@@ -34,6 +34,7 @@ class BaseHTTPProxyServer(protocol.Protocol):
         else:
             self.pre_connection_buffer += chunk
             domain = self.extract_server_name(self.pre_connection_buffer)
+            logging.debug('Parsed server name from request: %s' % domain)
             if domain is not None:
                 if self.factory.validator.valid_domain(
                     self.transport.getPeer().host, self.proto_name, domain
