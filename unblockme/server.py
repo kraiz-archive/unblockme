@@ -1,3 +1,4 @@
+import logging
 import struct
 
 from twisted.internet import defer, protocol, reactor
@@ -42,6 +43,7 @@ class BaseHTTPProxyServer(protocol.Protocol):
                     self.transport.loseConnection()
 
     def spawnClientConnection(self, domain):
+        logging.debug('Spawing client for %s://%s' % (self.proto_name, domain))
         factory = ProxyClientFactory(self.srv_queue, self.cli_queue)
         reactor.connectTCP(domain, self.default_port, factory)
         self.cli_queue.put(self.pre_connection_buffer)
