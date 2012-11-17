@@ -1,10 +1,6 @@
 #!/usr/bin/env python
+import os
 from distutils.core import setup
-
-
-def refresh_plugin_cache():
-    from twisted.plugin import IPlugin, getPlugins
-    list(getPlugins(IPlugin))
 
 
 if __name__ == '__main__':
@@ -28,4 +24,5 @@ if __name__ == '__main__':
         install_requires=['Twisted>=11']
     )
 
-refresh_plugin_cache()
+    # clean up
+    os.unlink('MANIFEST')
