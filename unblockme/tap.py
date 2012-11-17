@@ -1,3 +1,4 @@
+import ConfigParser
 import logging
 
 from twisted.application import service
@@ -19,27 +20,30 @@ logging.basicConfig(level=logging.DEBUG,
 
 class Options(usage.Options):
     optParameters = [
-        ['interface', 'i', '192.168.178.38'],
-        ['clients', 'c', 'home.kraiz.de,hostwindows'],
-        ['domains', 'd', '.netflix.com'],
-        ['forward-dns', 'dns', '8.8.8.8'],
+#        ['interface', 'i', '199.195.249.85'],
+#        ['clients', 'c', 'home.kraiz.de'],
+#        ['domains', 'd', '.netflix.com,.grooveshark.com'],
+#        ['forward-dns', 'dns', '8.8.8.8'],
     ]
 
 
 def makeService(config):
     unblockme_service = service.MultiService()
-
+    
     # parse config & log
-    interface = config['interface']
+    cfg = ConfigParser.ConfigParser()
+    cfg.read('/etc/unblockme.conf')
+
+    interface = cfg.get('unblockme', 'bind-address')
     logging.info('Starting unblockme at %s' % interface)
 
-    clients = config['clients'].split(',')
+    clients = [s.strip() for s in cfg.get('unblockme', 'clients').split(',')]
     logging.info('clients: %s' % ', '.join(clients))
 
-    domains = config['domains'].split(',')
+    domains = [s.strip() for s in cfg.get('unblockme', 'domains').split(',')]
     logging.info('domains: %s' % ', '.join(domains))
 
-    forward_dns = config['forward-dns'].split(',')
+    forward_dns = [s.strip() for s in cfg.get('unblockme', 'forward-dns').split(',')]
     logging.info('forward-dns: %s' % ', '.join(forward_dns))
 
     # validator

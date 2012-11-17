@@ -29,8 +29,8 @@ class Validator(object):
         result = client in self.client_dns_ip_mapping.values()
         if not result:
             logging.warn('Unauthorized request (%s) from %s' % (proto, client))
-        else:
-            logging.debug('Authorized request (%s) from %s' % (proto, client))
+#        else:
+#            logging.debug('Authorized request (%s) from %s' % (proto, client))
         return result
 
     def valid_domain(self, client, proto, domain):
@@ -39,8 +39,8 @@ class Validator(object):
             logging.warn('Unauthorized request (%s) from %s to %s' %
                 (proto, client, domain)
             )
-        else:
-            logging.debug('Authorized request (%s) from %s to %s' %
-                (proto, client, domain)
-            )
+#        else:
+#            logging.debug('Authorized request (%s) from %s to %s' %
+#                (proto, client, domain)
+#            )
         return result
