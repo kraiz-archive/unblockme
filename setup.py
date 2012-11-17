@@ -10,7 +10,7 @@ def refresh_plugin_cache():
 if __name__ == '__main__':
     setup(
         name='unblockme',
-        version='0.0.5',
+        version='0.0.2a1',
         author='Lars Kreisz',
         author_email='der.kraiz@gmail.com',
 
@@ -21,8 +21,8 @@ if __name__ == '__main__':
                           'deploy/unblockme']
         },
         data_files=[
-            ('/etc/', ['deploy/unblockme.conf']),
-            ('/etc/init.d', ['deploy/unblockme'])
+            ('/etc/', ['unblockme/deploy/unblockme.conf']),
+            ('/etc/init.d', ['unblockme/deploy/unblockme'])
         ],
 
         install_requires=['Twisted>=11']
