@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name='unblockme',
@@ -10,7 +10,9 @@ setup(
     packages=['unblockme'],
     data_files=[
         ('twisted/plugins', ['twisted/plugins/unblockme_plugin.py']),
-        ('/etc/',           ['deploy/unblockme.conf']),
-        ('/etc/init.d',     ['deploy/unblockme'])
-    ]
+        ('/etc/', ['deploy/unblockme.conf']),
+        ('/etc/init.d', ['deploy/unblockme'])
+    ],
+
+    install_requires=['Twisted>=11']
 )
