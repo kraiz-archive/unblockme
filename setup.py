@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from setuptools import setup
+from distutils.core import setup
 
 
 def refresh_plugin_cache():
@@ -10,7 +10,7 @@ def refresh_plugin_cache():
 if __name__ == '__main__':
     setup(
         name='unblockme',
-        version='0.0.4',
+        version='0.0.5',
         author='Lars Kreisz',
         author_email='der.kraiz@gmail.com',
 
