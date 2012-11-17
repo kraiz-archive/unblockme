@@ -1,14 +1,14 @@
 #!/usr/bin/env python
-import sys
+#import sys
 
 from distutils.core import setup
-from distutils.command.install import install
+#from distutils.command.install import install
 
 
-class post_install(install):
-    def run(self):
-        install.run(self)
-        print "ARGV -> " + sys.argv[1]
+#class post_install(install):
+#    def run(self):
+#        install.run(self)
+#        print "ARGV -> " + sys.argv[1]
 
 setup(
     name='unblockme',
@@ -28,5 +28,5 @@ setup(
     ],
 
     install_requires=['Twisted>=11'],
-    cmdclass=dict(install=post_install)
+#    cmdclass=dict(install=post_install)
 )
