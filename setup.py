@@ -10,13 +10,15 @@ def refresh_plugin_cache():
 if __name__ == '__main__':
     setup(
         name='unblockme',
-        version='0.0.3',
+        version='0.0.4',
         author='Lars Kreisz',
         author_email='der.kraiz@gmail.com',
 
         packages=['unblockme', 'twisted.plugins'],
         package_data={
             'twisted': ['plugins/unblockme_plugin.py'],
+            'unblockme': ['deploy/unblockme.conf',
+                          'deploy/unblockme']
         },
         data_files=[
             ('/etc/', ['deploy/unblockme.conf']),
