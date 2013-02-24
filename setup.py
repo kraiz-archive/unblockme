@@ -1,5 +1,4 @@
-#from distutils.core import setup
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name='unblockme',
@@ -11,10 +10,14 @@ setup(
     author_email='dev@kraiz.de',
     description='proxy software against geoblocking',
     install_requires=[
-        'gevent>=0.13',
-        'dnslib>=0.8.2'
+        'gevent==1.0dev',
+        'dnslib>=0.8.2',
+        'psutil>=0.6.1'
     ],
-    entry_points = {
+    dependency_links=[
+        'https://github.com/SiteSupport/gevent/tarball/master#egg=gevent-1.0dev',
+    ],
+    entry_points={
         'console_scripts': [
             'unblockme = unblockme:main',
         ],

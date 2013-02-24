@@ -10,6 +10,7 @@ SERVER_NAME = '0000'
 # don't forget, you have to pad a 3-byte value with \x00
 _SIZE_FORMATS = ['!B', '!H', '!I', '!I']
 
+
 def parse_variable_array(buf, lenbytes):
     """
     Parse an array described using the 'Type name<x..y>' syntax from the spec
@@ -38,14 +39,12 @@ def parse_opaque(data, lenbytes=2):
     """
     if len(data) < lenbytes:
         raise ValueError("data too short: len(data)=%d" % (len(data),))
-        #print binascii.hexlify(data)
     try:
         opaqlen = 0
         for lenbyte in range(0, lenbytes):
-            opaqlen += struct.unpack('B', data[lenbyte])[0] * (2 ** ((lenbytes-lenbyte-1) * 8))
-        return (data[lenbytes:lenbytes+opaqlen], opaqlen+lenbytes)
-    except Exception, e:
-        print "parseOpaque error: data=%s" % (binascii.hexlify(data))
+            opaqlen += struct.unpack('B', data[lenbyte])[0] * (2 ** ((lenbytes - lenbyte - 1) * 8))
+        return data[lenbytes:lenbytes + opaqlen], opaqlen + lenbytes
+    except Exception:
         import traceback
         traceback.print_exc()
         raise

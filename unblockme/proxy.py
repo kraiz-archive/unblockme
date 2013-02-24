@@ -9,16 +9,19 @@ from unblockme.tls import ClientHello
 
 
 class BaseProxy(StreamServer):
-    buffer_size = 2**18
+    buffer_size = 2 ** 18
     timeout = 5
 
+    logger = None
+    port = None
+
     def handle(self, source, address):
-        destination_host, buffer =self.buffer_until_host_known(source)
-        self.logger.debug('host resolved to %s after reading %d bytes' % (destination_host, len(buffer)))
+        destination_host, buf = self.buffer_until_host_known(source)
+        self.logger.debug('host resolved to %s after reading %d bytes' % (destination_host, len(buf)))
 
         try:
             dest = create_connection((destination_host, self.port))
-            dest.sendall(buffer)
+            dest.sendall(buf)
         except IOError, ex:
             self.logger.error('failed to connect to %s:%s: %s', destination_host, self.port, ex)
             return
@@ -26,13 +29,15 @@ class BaseProxy(StreamServer):
         DuplexForwarder(source, dest, self.buffer_size, self.timeout).start()
 
     def buffer_until_host_known(self, source):
-        buffer = ''
+        buf = ''
         destination_host = None
         while destination_host is None:
-            buffer += source.recv(self.buffer_size)
-            destination_host = self.parse_destination_host(buffer)
-        return destination_host, buffer
+            buf += source.recv(self.buffer_size)
+            destination_host = self.parse_destination_host(buf)
+        return destination_host, buf
 
+    def parse_destination_host(self, data):
+        raise NotImplementedError()
 
 
 class HTTPProxy(BaseProxy):
